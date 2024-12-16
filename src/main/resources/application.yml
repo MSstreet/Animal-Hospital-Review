@@ -1,0 +1,26 @@
+server:
+  port: 8081
+
+spring:
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3309/pet_hos_db?serverTimezone=Asia/Seoul
+    username: root
+    password: lms*!$Ms0828
+
+  jackson:
+    property-naming-strategy: SNAKE_CASE
+    serialization:
+      fail-on-empty-beans: 'false'
+
+  application:
+    name: animal_hospital_review
+
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+    generate-ddl: true
+    defer-datasource-initialization: true
+
+
