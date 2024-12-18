@@ -4,7 +4,7 @@ server:
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
-    url: jdbc:mysql://localhost:3309/pet_hos_db?serverTimezone=Asia/Seoul
+    url: jdbc:mysql://localhost:3309/animal_hospital?serverTimezone=Asia/Seoul
     username: root
     password: lms*!$Ms0828
 

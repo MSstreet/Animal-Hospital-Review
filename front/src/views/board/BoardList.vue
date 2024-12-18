@@ -23,20 +23,20 @@
     </table>
     <div class="pagination w3-bar w3-padding-16 w3-small" v-if="paging.total_list_cnt > 0">
       <span class="pg">
-      <a href="javascript:;" @click="fnPage(1)" class="first w3-button w3-border">&lt;&lt;</a>
+      <a href="javascript:;" @click="fnPage(1)" class="first w3-button w3-bar-item w3-border">&lt;&lt;</a>
       <a href="javascript:;" v-if="paging.start_page > 10" @click="fnPage(`${paging.start_page-1}`)"
-         class="prev w3-button w3-border">&lt;</a>
+         class="prev w3-button w3-bar-item w3-border">&lt;</a>
       <template v-for=" (n,index) in paginavigation()">
           <template v-if="paging.page==n">
-              <strong class="w3-button w3-border w3-green" :key="index">{{ n }}</strong>
+              <strong class="w3-button w3-bar-item w3-border w3-green" :key="index">{{ n }}</strong>
           </template>
           <template v-else>
-              <a class="w3-button w3-border" href="javascript:;" @click="fnPage(`${n}`)" :key="index">{{ n }}</a>
+              <a class="w3-button w3-bar-item w3-border" href="javascript:;" @click="fnPage(`${n}`)" :key="index">{{ n }}</a>
           </template>
       </template>
       <a href="javascript:;" v-if="paging.total_page_cnt > paging.end_page"
-         @click="fnPage(`${paging.end_page+1}`)" class="next w3-button w3-border">&gt;</a>
-      <a href="javascript:;" @click="fnPage(`${paging.total_page_cnt}`)" class="last w3-button w3-border">&gt;&gt;</a>
+         @click="fnPage(`${paging.end_page+1}`)" class="next w3-button w3-bar-item w3-border">&gt;</a>
+      <a href="javascript:;" @click="fnPage(`${paging.total_page_cnt}`)" class="last w3-button w3-bar-item w3-border">&gt;&gt;</a>
       </span>
     </div>
   </div>
@@ -79,26 +79,46 @@ export default {
   },
   methods: {
     fnGetList() {
-      this.list = [
-        {
-          "idx":1,
-          "title": "제목1",
-          "author": "작성자1",
-          "created_at": "작성일시1"
-        },
-        {
-          "idx":1,
-          "title": "제목1",
-          "author": "작성자1",
-          "created_at": "작성일시1"
-        },
-        {
-          "idx":1,
-          "title": "제목1",
-          "author": "작성자1",
-          "created_at": "작성일시1"
+      this.requestBody = { // 데이터 전송
+        keyword: this.keyword,
+        page: this.page,
+        size: this.size
+      }
+
+      this.$axios.get(this.$serverUrl + "/board/list", {
+        params: this.requestBody,
+        headers: {}
+      }).then((res) => {
+
+        if (res.data.result_code === "OK") {
+          this.list = res.data.data
+          this.paging = res.data.pagination
+          this.no = this.paging.total_list_cnt - ((this.paging.page - 1) * this.paging.page_size)
         }
-      ]
+
+      }).catch((err) => {
+        if (err.message.indexOf('Network Error') > -1) {
+          alert('네트워크가 원활하지 않습니다.\n잠시 후 다시 시도해주세요.')
+        }
+      })
+    },
+    fnView(idx) {
+      this.requestBody.idx = idx
+      this.$router.push({
+        path: './detail',
+        query: this.requestBody
+      })
+    },
+    fnWrite() {
+      this.$router.push({
+        path: './write'
+      })
+    },
+    fnPage(n) {
+      if (this.page !== n) {
+        this.page = n
+        this.fnGetList()
+      }
     }
   }
 }
