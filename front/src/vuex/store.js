@@ -1,7 +1,7 @@
-// src/vuex/store.js
-import {createStore} from "vuex"
-import getters from "./getters"
-import mutations from "./mutations"
+import {createStore} from "vuex";
+import getters from "./getters";
+import mutations from "./mutations";
+import actions from "./actions";    //추가
 
 export default createStore({
     state: {
@@ -10,5 +10,5 @@ export default createStore({
     },
     mutations,
     getters,
-
-})
+    actions     //추가
+});
