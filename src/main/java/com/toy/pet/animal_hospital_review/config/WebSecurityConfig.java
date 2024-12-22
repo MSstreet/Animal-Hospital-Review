@@ -1,6 +1,7 @@
 package com.toy.pet.animal_hospital_review.config;
 
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -9,10 +10,16 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.web.cors.CorsConfigurationSource;
 
+@Configuration
 public class WebSecurityConfig {
 
+    private final CorsConfigurationSource corsConfigurationSource;
 
+    public WebSecurityConfig(CorsConfigurationSource corsConfigurationSource) {
+        this.corsConfigurationSource = corsConfigurationSource;
+    }
     // PasswordEncoder Bean 설정
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -37,7 +44,7 @@ public class WebSecurityConfig {
                 )
                 .formLogin(AbstractHttpConfigurer::disable  // 폼 로그인 비활성화
                 )
-                .cors(AbstractHttpConfigurer::disable);  // CORS 활성화
+                .cors(cors -> cors.configurationSource(corsConfigurationSource));  // CORS 활성화
 
         // .addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter.class); // 필터 추가는 필요에 따라 활성화
         return null;

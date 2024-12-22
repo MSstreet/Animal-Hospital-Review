@@ -23,4 +23,6 @@ spring:
     generate-ddl: true
     defer-datasource-initialization: true
 
+jwt:
+  secret: AAAABBBBCCCCDDDDEEEEFFFFGGGG123!@#
 

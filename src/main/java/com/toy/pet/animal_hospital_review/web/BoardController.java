@@ -15,7 +15,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @CrossOrigin
-@RestController
+@RestController("/api")
 public class BoardController {
 
     private final BoardService boardService;
