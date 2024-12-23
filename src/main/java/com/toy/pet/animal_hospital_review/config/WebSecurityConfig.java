@@ -1,25 +1,24 @@
 package com.toy.pet.animal_hospital_review.config;
 
+
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
-import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.web.cors.CorsConfigurationSource;
 
 @Configuration
 public class WebSecurityConfig {
 
-    private final CorsConfigurationSource corsConfigurationSource;
-
-    public WebSecurityConfig(CorsConfigurationSource corsConfigurationSource) {
-        this.corsConfigurationSource = corsConfigurationSource;
-    }
+//    private final CorsConfigurationSource corsConfigurationSource;
+//
+//    public WebSecurityConfig(CorsConfigurationSource corsConfigurationSource) {
+//        this.corsConfigurationSource = corsConfigurationSource;
+//    }
     // PasswordEncoder Bean 설정
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -35,19 +34,21 @@ public class WebSecurityConfig {
     // SecurityFilterChain을 사용한 보안 설정 (WebSecurityConfigurerAdapter 대체)
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-        http.csrf(AbstractHttpConfigurer::disable)  // CSRF 보호 비활성화
-                .authorizeHttpRequests(authz -> authz
-                        .anyRequest().permitAll()  // 모든 요청을 허용
+        http.csrf((csrfConfig) ->
+                csrfConfig.disable()
                 )
-                .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)  // 세션 관리 정책을 STATELESS로 설정
+                .authorizeHttpRequests(authorizeRequests ->
+                        authorizeRequests.anyRequest().permitAll()
                 )
-                .formLogin(AbstractHttpConfigurer::disable  // 폼 로그인 비활성화
+                .sessionManagement(sessionManagement ->
+                        sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
-                .cors(cors -> cors.configurationSource(corsConfigurationSource));  // CORS 활성화
+                .formLogin(formLogin ->
+                        formLogin.disable()
+                )
+                .cors(cors -> cors.disable());
 
-        // .addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter.class); // 필터 추가는 필요에 따라 활성화
-        return null;
+        return http.build();
     }
 
 }
