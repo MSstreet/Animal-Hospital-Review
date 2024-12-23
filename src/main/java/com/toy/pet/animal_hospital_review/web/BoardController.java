@@ -1,7 +1,9 @@
 package com.toy.pet.animal_hospital_review.web;
 
 import com.toy.pet.animal_hospital_review.entity.BoardEntity;
+import com.toy.pet.animal_hospital_review.entity.BoardRepositoryCustom;
 import com.toy.pet.animal_hospital_review.model.Header;
+import com.toy.pet.animal_hospital_review.model.SearchCondition;
 import com.toy.pet.animal_hospital_review.services.BoardService;
 import com.toy.pet.animal_hospital_review.web.dtos.BoardDto;
 import lombok.RequiredArgsConstructor;
@@ -15,16 +17,18 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @CrossOrigin
-@RestController("/api")
+@RestController
 public class BoardController {
 
     private final BoardService boardService;
 
+
     @GetMapping("/board/list")
     public Header<List<BoardDto>> boardList(
-            @PageableDefault(sort = {"idx"}) Pageable pageable
+            @PageableDefault(sort = {"idx"}) Pageable pageable,
+            SearchCondition searchCondition
     ) {
-        return boardService.getBoardList(pageable);
+        return boardService.getBoardList(pageable, searchCondition);
     }
 
     @GetMapping("/board/{id}")

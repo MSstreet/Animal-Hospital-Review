@@ -2,8 +2,10 @@ package com.toy.pet.animal_hospital_review.services;
 
 import com.toy.pet.animal_hospital_review.entity.BoardEntity;
 import com.toy.pet.animal_hospital_review.entity.BoardRepository;
+import com.toy.pet.animal_hospital_review.entity.BoardRepositoryCustom;
 import com.toy.pet.animal_hospital_review.model.Header;
 import com.toy.pet.animal_hospital_review.model.Pagination;
+import com.toy.pet.animal_hospital_review.model.SearchCondition;
 import com.toy.pet.animal_hospital_review.web.dtos.BoardDto;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -22,14 +24,14 @@ import java.util.List;
 public class BoardService {
 
     private final BoardRepository boardRepository;
-
+    private final BoardRepositoryCustom boardRepositoryCustom;
     /**
      * 게시글 목록 가져오기
      */
-    public Header<List<BoardDto>> getBoardList(Pageable pageable) {
+    public Header<List<BoardDto>> getBoardList(Pageable pageable, SearchCondition searchCondition) {
         List<BoardDto> dtos = new ArrayList<>();
 
-        Page<BoardEntity> boardEntities = boardRepository.findAllByOrderByIdxDesc(pageable);
+        Page<BoardEntity> boardEntities = boardRepositoryCustom.findAllBySearchCondition(pageable, searchCondition);
         for (BoardEntity entity : boardEntities) {
             BoardDto dto = BoardDto.builder()
                     .idx(entity.getIdx())
