@@ -2,7 +2,7 @@ import './assets/common.css'
 
 import { createApp } from 'vue'
 import App from './App.vue'
-import axios from 'axios'
+import axios from './utils/axios'   //여기가 변경되었음
 import router from './router'
 import store from './vuex/store'  //1. store 추가
 

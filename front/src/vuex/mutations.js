@@ -1,4 +1,4 @@
-// src/vuex/mutation.js
+/* src/vuex/mutation.js */
 import * as types from './mutation_types'
 
 export default {
