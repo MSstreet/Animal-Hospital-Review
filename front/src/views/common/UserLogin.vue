@@ -56,7 +56,7 @@ export default {
     },
     goToPages() {
       this.$router.push({
-        name: 'List'
+        name: 'Home'
       })
     }
   },

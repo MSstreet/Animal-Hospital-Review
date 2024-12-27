@@ -4,12 +4,13 @@ import List from "../views/board/BoardList.vue"
 import Detail from "../views/board/BoardDetail.vue"
 import Write from "../views/board/BoardWrite.vue"
 import Login from "../views/common/UserLogin.vue"
-import store from "../vuex/store";
+
 
 const requireAuth = () => (from, to, next) => {
     const token = localStorage.getItem('user_token')
+
     if (token) {
-        store.state.isLogin = true
+
         return next()
     } // isLogin === true면 페이지 이동
     next('/login') // isLogin === false면 다시 로그인 화면으로 이동
@@ -37,8 +38,7 @@ const routes = [
     {
         path: '/board/list',
         name: 'List',
-        component: List,
-        beforeEnter: requireAuth()
+        component: List
     },
     {
         path: '/board/detail',

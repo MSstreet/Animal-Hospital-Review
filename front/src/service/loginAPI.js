@@ -1,4 +1,5 @@
 import axios from 'axios'
+import store from "@/vuex/store";
 
 const getUserInfo = (userId, userPw) => {
     const reqData = {
@@ -25,6 +26,7 @@ export default {
             } else {
                 localStorage.setItem('user_token', userInfoResponse.data.user_token)
                 localStorage.setItem('user_role', userInfoResponse.data.user_role)
+                store.state.isLogin = true
                 return userInfoResponse
             }
         } catch (err) {
