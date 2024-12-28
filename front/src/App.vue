@@ -1,17 +1,14 @@
 <template>
   <PageHeader/> <!-- 헤더 컴포넌트 -->
   <router-view/>  <!-- 페이지 이동이 표시될 곳 -->
-  <PageFooter/> <!-- 푸터 컴포넌트 -->
 </template>
 
 <script>
 import PageHeader from '@/components/PageHeader'
-import PageFooter from '@/components/PageFooter'
 
 export default {
   name: 'App',
   components: {
-    PageFooter,
     PageHeader
   }
 }
@@ -19,20 +16,24 @@ export default {
 
 <style>
 #app {
-  font-family: Avenir, Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  margin: 0;
+  padding: 0;
   text-align: center;
-  color: #2c3e50;
 }
 
-#nav {
-  padding: 30px;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-#nav a {
-  font-weight: bold;
-  color: #2c3e50;
+html, body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #nav a.router-link-exact-active {
