@@ -19,7 +19,8 @@
 
         <!-- 오르쪽: 유저 정보 -->
         <div class="navbar-user-info">
-          <router-link to="/login">Login</router-link>
+          <router-link to="/login" v-if="!this.$store.state.isLogin">Login</router-link>
+          <a v-if="this.$store.state.isLogin" @click="fnLogout">Logout</a>
         </div>
 
         <!-- 모바일 메뉴 버튼 -->
@@ -55,6 +56,11 @@ export default {
   methods: {
     toggleMenu() {
       this.menuOpen = !this.menuOpen;
+    },
+    fnLogout() {
+      localStorage.removeItem("user_token")
+      localStorage.removeItem("user_role")
+      location.reload()
     }
   }
 };

@@ -2,7 +2,6 @@ package com.toy.pet.animal_hospital_review.config;
 
 
 import com.toy.pet.animal_hospital_review.services.UserService;
-import com.toy.pet.animal_hospital_review.util.TokenRequestFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -13,8 +12,8 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.oauth2.client.userinfo.OAuth2UserService;
 import org.springframework.security.web.SecurityFilterChain;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 
 @RequiredArgsConstructor
@@ -23,7 +22,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class WebSecurityConfig {
 
     private final UserService userService;
-    private final TokenRequestFilter tokenRequestFilter;
+    //private final TokenRequestFilter tokenRequestFilter;
 
 
     //    private final CorsConfigurationSource corsConfigurationSource;
@@ -54,7 +53,9 @@ public class WebSecurityConfig {
                 csrfConfig.disable()
                 )
                 .authorizeHttpRequests(authorizeRequests ->
-                        authorizeRequests.anyRequest().permitAll()
+                        authorizeRequests
+                                .requestMatchers("/", "/oauth/**", "/login").permitAll()
+                                .anyRequest().permitAll()
                 )
                 .sessionManagement(sessionManagement ->
                         sessionManagement.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
@@ -62,7 +63,7 @@ public class WebSecurityConfig {
                 .formLogin(formLogin ->
                         formLogin.disable()
                 )
-                .addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter.class)
+                //.addFilterBefore(tokenRequestFilter, UsernamePasswordAuthenticationFilter.class)
                 .cors(cors -> cors.disable());
 
         return http.build();

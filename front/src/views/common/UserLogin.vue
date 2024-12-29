@@ -12,6 +12,7 @@
           </p>
           <p>
             <button type="submit" class="w3-button w3-green w3-round">Login</button>
+            <button type="button" @click="kakaoLogin">카카오 로그인</button>
           </p>
         </form>
       </div>
@@ -21,6 +22,7 @@
 
 <script>
 import {mapActions, mapGetters} from 'vuex'
+import axios from 'axios'
 
 export default {
   data() {
@@ -52,6 +54,28 @@ export default {
         } else {
           alert('로그인 정보를 확인할 수 없습니다.')
         }
+      }
+    },
+    redirectToBackend() {
+      // 백엔드의 카카오 로그인 엔드포인트로 리디렉트
+      window.location.href = "http://localhost:8081/oauth2/authorization/kakao";
+    },
+    async kakaoLogin() {
+      // const redirectUri = "http://localhost:8081/oauth/kakao/callback"; // 백엔드 카카오 콜백 URL
+      // const clientId = "409b3fb04dd78999f86c8dbc4a19372a";
+      // const authorizationUri = `https://kauth.kakao.com/oauth/authorize?client_id=${clientId}&redirect_uri=${redirectUri}&response_type=code`;
+      //
+      // // 카카오 로그인 페이지로 리디렉션
+      // window.location.href = authorizationUri;
+      try {
+        // 백엔드로 로그인 URL을 요청
+        const response = await axios.get("http://localhost:8081/oauth/kakao/login-url");
+        const authorizationUri = response.data;
+
+        // 카카오 로그인 페이지로 리디렉션
+        window.location.href = authorizationUri;
+      } catch (error) {
+        console.error("카카오 로그인 URL을 가져오는 중 오류가 발생했습니다.", error);
       }
     },
     goToPages() {
