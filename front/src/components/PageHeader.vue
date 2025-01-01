@@ -21,6 +21,7 @@
         <div class="navbar-user-info">
           <router-link to="/login" v-if="!this.$store.state.isLogin">Login</router-link>
           <a v-if="this.$store.state.isLogin" @click="fnLogout">Logout</a>
+          <router-link to="/join" v-if="!this.$store.state.isLogin">Join</router-link>
         </div>
 
         <!-- 모바일 메뉴 버튼 -->

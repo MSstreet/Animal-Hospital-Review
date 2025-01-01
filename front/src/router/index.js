@@ -4,6 +4,7 @@ import Detail from "../views/board/BoardDetail.vue"
 import Write from "../views/board/BoardWrite.vue"
 import Login from "../views/common/UserLogin.vue"
 import PageHome from "@/views/PageHome.vue";
+import Join from "../views/common/UserJoin.vue"
 
 
 const requireAuth = () => (from, to, next) => {
@@ -26,6 +27,11 @@ const routes = [
         path: '/login',
         name: 'Login',
         component: Login  //로그인 컴포넌트 추가
+    },
+    {
+        path: '/Join',
+        name: 'Join',
+        component: Join  //로그인 컴포넌트 추가
     },
     {
         path: '/about',

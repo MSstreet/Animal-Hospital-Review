@@ -8,7 +8,7 @@ import lombok.*;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-@Table(name="TB_USER")
+@Table(name="USER")
 @Entity
 public class UserEntity {
 
@@ -17,5 +17,10 @@ public class UserEntity {
     private Long idx;
     private String userId;
     private String userPw;
+    private String userPwChk;
     private String userName;
+    private String userEmail;
+    private String userAddress;
+    private String userAddressDtl;
+    private String userZipCode;
 }

@@ -1,19 +1,21 @@
 <template>
-  <div>
-    <div>
-      <h2>Please Log In</h2>
+  <div class="login-container">
+    <div class="login-box">
+      <h2>LOGIN</h2>
       <div id="loginForm">
         <form @submit.prevent="fnLogin">
-          <p>
-            <input class="w3-input" name="uid" placeholder="Enter your ID" v-model="user_id"><br>
-          </p>
-          <p>
-            <input name="password" class="w3-input" placeholder="Enter your password" v-model="user_pw" type="password">
-          </p>
-          <p>
-            <button type="submit" class="w3-button w3-green w3-round">Login</button>
-            <button type="button" @click="kakaoLogin">카카오 로그인</button>
-          </p>
+          <div class="textbox">
+            <input name="uid" placeholder="아이디" v-model="user_id"><br>
+          </div>
+          <div class="textbox">
+            <input name="password" placeholder="비밀번호" v-model="user_pw" type="password">
+          </div>
+          <div class="btn-box">
+            <button type="submit" class="btn">Login</button>
+            <button type="button" class="kakao-btn" @click="kakaoLogin">
+              <img src="@/assets/kakao_login_medium.png" class="kakao-btn-img" alt="카카오 로그인 로고" />
+            </button>
+          </div>
         </form>
       </div>
     </div>
@@ -21,6 +23,7 @@
 </template>
 
 <script>
+import './UserLogin.css'
 import {mapActions, mapGetters} from 'vuex'
 import axios from 'axios'
 
@@ -91,10 +94,3 @@ export default {
   }
 }
 </script>
-
-<style>
-#loginForm {
-  width: 500px;
-  margin: auto;
-}
-</style>

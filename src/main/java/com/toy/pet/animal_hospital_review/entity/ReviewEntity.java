@@ -10,6 +10,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
+@Table(name="REVIEW")
 @Entity
 public class ReviewEntity {
 
@@ -20,8 +21,9 @@ public class ReviewEntity {
     private Integer score;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private UserEntity userEntity;
+    private UserEntity user;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    private AnimalHospital petHospitalEntity;
+    private AnimalHospitalEntity animalHospital;
+
 }
