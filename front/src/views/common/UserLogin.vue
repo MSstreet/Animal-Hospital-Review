@@ -1,17 +1,16 @@
 <template>
   <div class="login-container">
     <div class="login-box">
-      <h2>LOGIN</h2>
       <div id="loginForm">
         <form @submit.prevent="fnLogin">
-          <div class="textbox">
-            <input name="uid" placeholder="아이디" v-model="user_id"><br>
+          <div class="login-textbox">
+            <input name="uid" placeholder="아이디" v-model="user_id">
           </div>
-          <div class="textbox">
+          <div class="login-textbox">
             <input name="password" placeholder="비밀번호" v-model="user_pw" type="password">
           </div>
           <div class="btn-box">
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class="login-btn">Login</button>
             <button type="button" class="kakao-btn" @click="kakaoLogin">
               <img src="@/assets/kakao_login_medium.png" class="kakao-btn-img" alt="카카오 로그인 로고" />
             </button>

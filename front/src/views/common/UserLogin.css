@@ -21,14 +21,15 @@ h2 {
     color: #333;
 }
 
-.textbox {
-    margin-bottom: 20px;
+.login-textbox {
+    margin-bottom: 0;
 }
 
-.textbox input {
+
+.login-textbox input {
     width: 100%;
     padding: 12px;
-    margin: 8px 0;
+    margin: 0;
     border: 2px solid #ddd;
     border-radius: 5px;
     font-size: 16px;
@@ -36,7 +37,7 @@ h2 {
     transition: all 0.3s ease;
 }
 
-.textbox input:focus {
+.login-textbox input:focus {
     border-color: #2575fc;
     outline: none;
 }
@@ -45,7 +46,7 @@ h2 {
 /*    text-align: left;*/
 /*}*/
 
-.btn {
+.login-btn {
     width: 100%;
     padding: 14px;
     background-color: #2575fc;
@@ -69,6 +70,6 @@ h2 {
     padding : 0;
 }
 
-.btn:hover {
+.login-btn:hover {
     background-color: #6a11cb;
 }
