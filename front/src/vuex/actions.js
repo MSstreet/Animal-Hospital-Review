@@ -1,6 +1,7 @@
 // src/vuex/actions.js
 import {USER_ID, IS_AUTH, ERROR_STATE} from './mutation_types'
 import loginAPI from '../service/loginAPI'
+import joinAPI from '../service/joinAPI'
 
 let setUserId = ({commit}, data) => {
     commit(USER_ID, data)
@@ -28,6 +29,22 @@ let processResponse = (store, loginResponse) => {
     }
 }
 
+let processJoinResponse = (store, joinResponse) => {
+
+    switch (joinResponse) {
+        case 'notFound':
+            setErrorState(store, 'false')
+            setIsAuth(store, false)
+            break
+
+        default:
+            //setUserId(store, loginResponse.user_id)
+            setErrorState(store, '')
+            setIsAuth(store, true)
+    }
+}
+
+
 export default {
     async login (store, {user_id, user_pw}) {
         let loginResponse = await loginAPI.doLogin(user_id, user_pw)
@@ -37,7 +54,7 @@ export default {
 
     async join (store, {user_id, user_pw, user_email, user_name,user_zip_code,user_address,user_address_dtl}) {
         let joinResponse = await joinAPI.doJoin(user_id, user_pw,user_name, user_email,user_zip_code,user_address,user_address_dtl)
-        processResponse(store,joinResponse)
+        processJoinResponse(store,joinResponse)
         return store.getters.getIsAuth  // 회원가입 결과 리턴
     }
 }

@@ -1,8 +1,11 @@
 package com.toy.pet.animal_hospital_review.web;
 
 
+import com.toy.pet.animal_hospital_review.entity.UserEntity;
 import com.toy.pet.animal_hospital_review.services.UserService;
 import com.toy.pet.animal_hospital_review.util.JwtUtil;
+import com.toy.pet.animal_hospital_review.web.dtos.UserDto;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
@@ -47,5 +50,13 @@ public class UserController {
         result.put("user_role", loginUser.getAuthorities().stream().findFirst().get().getAuthority());
 
         return ResponseEntity.ok(result);
+    }
+
+    @PostMapping("/join")
+    public Long saveUser(@RequestBody @Valid UserDto userDto) throws Exception {
+
+        UserEntity user = userService.saveUser(userDto);
+
+        return  user.getIdx();
     }
 }

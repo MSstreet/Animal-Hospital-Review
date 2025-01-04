@@ -1,5 +1,4 @@
 import axios from 'axios'
-import store from "@/vuex/store";
 
 const getUserInfo = (userId,userPw,userEmail,userName,userZipCode,userAddress,userAddressDtl) => {
     const reqData = {

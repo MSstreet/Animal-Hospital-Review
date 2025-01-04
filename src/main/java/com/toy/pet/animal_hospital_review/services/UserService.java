@@ -2,6 +2,9 @@ package com.toy.pet.animal_hospital_review.services;
 
 import com.toy.pet.animal_hospital_review.entity.UserEntity;
 import com.toy.pet.animal_hospital_review.entity.UserRepository;
+import com.toy.pet.animal_hospital_review.web.dtos.UserDto;
+import jakarta.transaction.Transactional;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -32,5 +35,10 @@ public class UserService implements UserDetailsService {
         }
 
         return new User(userEntity.getUserId(), userEntity.getUserPw(), authorities);
+    }
+
+    @Transactional
+    public UserEntity saveUser(@Valid UserDto userDto) {
+        return userRepository.save(UserEntity.toEntity(userDto));
     }
 }
